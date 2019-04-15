@@ -28,24 +28,34 @@ const RAW_ROUTES = {
   CARD: (params: Card) => `/projects/:projectId/cards/:cardId`,
 };
 
+type Params = {
+  [key: string]: string;
+};
+
+function isParams(params: any): params is Params {
+  return Boolean(Object.keys(params).length);
+}
+
 // Convert a single route.
 function convertRoute<T>(route: RawRoute<T>) {
+  const path = route(null);
   return {
-    path: route(null),
+    path,
     build: params =>
-      params
+      params && isParams(params)
         ? Object.keys(params).reduce(
             (acc, key) => acc.replace(`:${key}`, params[key]),
-            route(null)
+            path
           )
-        : route(null),
+        : path,
   } as Route<T>;
 }
 
 // Convert a dictionary of routes.
 function convertRoutes(routes: RawRoutes) {
-  return Object.keys(routes).reduce(
-    (acc, key) => ({ ...acc, [key]: convertRoute(routes[key]) }),
+  const routeKeys = Object.keys(routes) as [keyof RawRoutes];
+  return routeKeys.reduce(
+    (acc, key) => ({ ...acc, [key]: convertRoute(routes[key] as any) }),
     {}
   ) as { [P in keyof RawRoutes]: Route<Parameter<RawRoutes[P]>> };
 }
