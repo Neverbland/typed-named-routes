@@ -38,7 +38,7 @@ function isParams(params: any): params is Params {
 
 // Convert a single route.
 function convertRoute<T>(route: RawRoute<T>) {
-  const path = route(null);
+  const path = route((null as unknown) as T);
   return {
     path,
     build: params =>
