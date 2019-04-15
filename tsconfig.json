@@ -14,18 +14,18 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "sourceMap": true,
-    "strict": true
-    // "strictFunctionTypes": true,
-    // "strictNullChecks": true,
-    // "suppressImplicitAnyIndexErrors": true,
-    // "target": "es5",
-    // "plugins": [],
-    // "baseUrl": "src",
-    // "declaration": true,
-    // "isolatedModules": false,
-    // "jsx": "react",
-    // "module": "commonjs",
-    // "outDir": "lib",
-    // "rootDirs": ["src"]
+    "strict": true,
+    "strictFunctionTypes": true,
+    "strictNullChecks": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "target": "es5",
+    "plugins": [],
+    "baseUrl": "src",
+    "declaration": true,
+    "isolatedModules": false,
+    "jsx": "react",
+    "module": "commonjs",
+    "outDir": "lib",
+    "rootDirs": ["src"]
   }
 }
