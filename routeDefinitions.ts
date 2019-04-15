@@ -1,0 +1,64 @@
+// Obtain the first parameter of a function type in a tuple
+type Parameter<T extends (params: any) => any> = T extends (
+  params: infer P
+) => any
+  ? P
+  : never;
+
+// Raw Route types.
+type RawRoutes = Readonly<typeof RAW_ROUTES>;
+type RawRoute<T> = {} extends T ? () => string : (params: T) => string;
+
+// Route output type.
+interface Route<T> {
+  path: string;
+  build: RawRoute<T>;
+}
+
+// Route signatures.
+type Profile = { id: string };
+type Card = { projectId: string; cardId: string };
+
+// Route definitions - this just outlines the signature for each route along
+// with the path template.
+const RAW_ROUTES = {
+  HOME: () => '/',
+  ABOUT: () => '/about',
+  PROFILE: (params: Profile) => `/profile/:id`,
+  CARD: (params: Card) => `/projects/:projectId/cards/:cardId`,
+};
+
+// Convert a single route.
+function convertRoute<T>(route: RawRoute<T>) {
+  return {
+    path: route(null),
+    build: params =>
+      params
+        ? Object.keys(params).reduce(
+            (acc, key) => acc.replace(`:${key}`, params[key]),
+            route(null)
+          )
+        : route(null),
+  } as Route<T>;
+}
+
+// Convert a dictionary of routes.
+function convertRoutes(routes: RawRoutes) {
+  return Object.keys(routes).reduce(
+    (acc, key) => ({ ...acc, [key]: convertRoute(routes[key]) }),
+    {}
+  ) as { [P in keyof RawRoutes]: Route<Parameter<RawRoutes[P]>> };
+}
+
+// Convert our routes to a usable API.
+const ROUTES = convertRoutes(RAW_ROUTES);
+
+// We can build a route that doesn't need args like this:
+ROUTES.ABOUT.build();
+
+// And we can fetch its route template like this:
+ROUTES.ABOUT.path;
+
+// For routes that take args we can specify like this:
+ROUTES.PROFILE.build({ id: '123' });
+ROUTES.CARD.build({ cardId: 'abc', projectId: '123' });
