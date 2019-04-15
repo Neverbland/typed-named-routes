@@ -6,8 +6,10 @@ type Parameter<T extends (params: any) => any> = T extends (
   : never;
 
 // Raw Route types.
-type RawRoutes = Readonly<typeof RAW_ROUTES>;
 type RawRoute<T> = {} extends T ? () => string : (params: T) => string;
+interface RawRoutesBase {
+  [key: string]: (params: any) => string;
+}
 
 // Route output type.
 interface Route<T> {
@@ -52,12 +54,12 @@ function convertRoute<T>(route: RawRoute<T>) {
 }
 
 // Convert a dictionary of routes.
-function convertRoutes(routes: RawRoutes) {
-  const routeKeys = Object.keys(routes) as [keyof RawRoutes];
+function convertRoutes<T extends RawRoutesBase>(routes: T) {
+  const routeKeys = Object.keys(routes) as [keyof T];
   return routeKeys.reduce(
     (acc, key) => ({ ...acc, [key]: convertRoute(routes[key] as any) }),
     {}
-  ) as { [P in keyof RawRoutes]: Route<Parameter<RawRoutes[P]>> };
+  ) as { [P in keyof T]: Route<Parameter<T[P]>> };
 }
 
 // Convert our routes to a usable API.
