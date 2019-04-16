@@ -17,7 +17,7 @@ interface RawRoutesBase {
 
 // Route output type.
 interface Route<T> {
-  path: string;
+  template: string;
   build: RawRoute<T>;
 }
 
@@ -31,16 +31,16 @@ function isParams(params: any): params is Params {
 
 // Convert a single route.
 export function buildRouteApi<T>(route: RawRoute<T>) {
-  const path = route((null as unknown) as T);
+  const template = route((null as unknown) as T);
   return {
-    path,
+    template,
     build: params =>
       params && isParams(params)
         ? Object.keys(params).reduce(
             (acc, key) => acc.replace(`:${key}`, params[key]),
-            path
+            template
           )
-        : path,
+        : template,
   } as Route<T>;
 }
 
@@ -58,7 +58,7 @@ export function buildRoutesApi<T extends RawRoutesBase>(routes: T) {
  */
 
 // Route definitions - this just outlines the signature for each route along
-// with the path template.
+// with the template template.
 const RAW_ROUTES = {
   HOME: () => '/',
   ABOUT: () => '/about',
@@ -78,7 +78,7 @@ const ROUTES = buildRoutesApi(RAW_ROUTES);
 ROUTES.ABOUT.build();
 
 // And we can fetch its route template like this:
-ROUTES.ABOUT.path;
+ROUTES.ABOUT.template;
 
 // For routes that take args we can specify like this:
 ROUTES.PROFILE.build({ id: '123' });
