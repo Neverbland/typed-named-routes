@@ -32,7 +32,6 @@ For the `PROFILE` definition a parameter `id` is required in order to build the 
 
 ```TS
 const routeAPI = buildRoutesApi(routeDefinitions);
-
 ```
 
 **Use the routes API -**
@@ -58,7 +57,6 @@ const App = () => (
     </Router>
   </>
 );
-
 ```
 
 The template property will give you back the template that you provided in the route definition, so it can be used as the path for react-router `<Route />`s.
