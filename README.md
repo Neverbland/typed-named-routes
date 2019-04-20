@@ -10,7 +10,7 @@ It's largely inspired by [this post](https://www.blogreader.com.au/blog/named-ro
 
 Install as you would expect - `npm i typed-named-routes --save` or `yarn add typed-named-routes`.
 
-Import the package - `import { buildRouteApi } from 'typed-named-routes` or `const { buildRouteApi } = require('typed-named-routes')`.
+Import the package - `import { buildRoutesApi } from 'typed-named-routes` or `const { buildRoutesApi } = require('typed-named-routes')`.
 
 **Create your route definitions -**
 
