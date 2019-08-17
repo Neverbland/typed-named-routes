@@ -64,3 +64,9 @@ The template property will give you back the template that you provided in the r
 The build property is a method that will require the params defined in the route definition. If you are using vscode you should get intellisense around the required parameters for a given route and if you're using TypeScript it should warn you if you do not provide the correct params.
 
 ![Image depicting intellisense at work](img/intellisense.png?raw=true)
+
+[Change log](CHANGE_LOG.md)
+
+## TODO
+
+- Document optional parameters (for now see `routeHelpers.spec.ts` for examples)

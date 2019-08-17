@@ -115,6 +115,8 @@ describe('buildRoutesApi', () => {
   describe('Optional route segments', () => {
     const routesAPI = routeHelpers.buildRoutesApi({
       ABOUT: (params: { profile: boolean }) => '/about/profile?',
+      ACCOUNT: (params: { edit?: boolean; password?: boolean }) =>
+        '/account/edit?/password?',
       PROFILES: (params: { id?: string; edit?: boolean }) =>
         '/profiles/:id?/edit?',
       EMPLOYEES: (params: {
@@ -136,6 +138,14 @@ describe('buildRoutesApi', () => {
 
     test('any optional template route segments should not be rendered if `false`', () => {
       expect(routesAPI.ABOUT.build({ profile: false })).toEqual('/about');
+    });
+
+    test('Optional segments left empty or false should be omitted', () => {
+      expect(routesAPI.ACCOUNT.build({ edit: false, password: false })).toEqual(
+        '/account'
+      );
+      expect(routesAPI.ACCOUNT.build({ edit: false })).toEqual('/account');
+      expect(routesAPI.ACCOUNT.build({})).toEqual('/account');
     });
 
     test('any optional template route params should exist in template', () => {

@@ -51,18 +51,18 @@ export function buildRouteApi<T>(route: RawRoute<T>) {
         return (
           acc
             // Replace optional segments.
-            .replace(`/${key}?`, params[key] === true ? `/${key}` : '/')
+            .replace(`/${key}?`, params[key] === true ? `/${key}` : '')
 
             // Replace optional params.
             .replace(
               `/:${key}?`,
-              typeof params[key] === 'string' ? `/${params[key]}` : '/'
+              typeof params[key] === 'string' ? `/${params[key]}` : ''
             )
 
             // Replace mandatory params.
             .replace(
               `/:${key}`,
-              typeof params[key] === 'string' ? `/${params[key]}` : '/'
+              typeof params[key] === 'string' ? `/${params[key]}` : ''
             )
         );
       }, template);
