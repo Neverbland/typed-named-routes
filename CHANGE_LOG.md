@@ -12,3 +12,7 @@
 
 - Deals with specific case where `false` parameters would produce an additional trailing slash
 - Tidies up public exports
+
+## 0.2.4
+
+- Updates packages
