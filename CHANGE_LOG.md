@@ -17,6 +17,6 @@
 
 - Updates packages
 
-## 0.2.5
+## 0.2.5 / 0.2.6
 
 - Exports helper types

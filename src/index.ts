@@ -1,5 +1,10 @@
-export {
-  RouteParametersFromBuildMethod,
-} from './routeParametersFromBuildMethod';
+export { RouteParametersFromBuildMethod } from './routeParametersFromBuildMethod';
 
-export { buildRouteApi, buildRoutesApi } from './routeHelpers';
+export {
+  buildRouteApi,
+  buildRoutesApi,
+  Parameter,
+  Params,
+  RawRoute,
+  Route,
+} from './routeHelpers';
