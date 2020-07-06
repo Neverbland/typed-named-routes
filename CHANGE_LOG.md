@@ -16,3 +16,7 @@
 ## 0.2.4
 
 - Updates packages
+
+## 0.2.5
+
+- Exports helper types

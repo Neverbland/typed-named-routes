@@ -1,12 +1,12 @@
 // Obtain the first parameter of a function type in a tuple
-type Parameter<T extends (params: any) => any> = T extends (
+export type Parameter<T extends (params: any) => any> = T extends (
   params: infer P
 ) => any
   ? P
   : never;
 
 // Raw Route types.
-type RawRoute<T> = {} extends Required<T>
+export type RawRoute<T> = {} extends Required<T>
   ? () => string
   : (params: T) => string;
 interface RawRoutesBase {
@@ -14,12 +14,12 @@ interface RawRoutesBase {
 }
 
 // Route output type.
-interface Route<T> {
+export interface Route<T> {
   template: string;
   build: RawRoute<T>;
 }
 
-interface Params {
+export interface Params {
   [key: string]: string | boolean;
 }
 
@@ -41,7 +41,7 @@ export function buildRouteApi<T>(route: RawRoute<T>) {
   const template = route((null as unknown) as T);
   return {
     template,
-    build: params => {
+    build: (params) => {
       // Return early if we have no params.
       if (!params || !isParams(params)) {
         return __sanitiseBuiltOutput(template);
