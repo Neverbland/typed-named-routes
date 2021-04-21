@@ -1,6 +1,6 @@
 {
   "name": "typed-named-routes",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "main": "lib/index.js",
   "module": "lib/index.js",
   "license": "MIT",
@@ -11,7 +11,8 @@
     "typescript": "^4.2.4"
   },
   "resolutions": {
-    "set-value": "^2.0.1"
+    "set-value": "^2.0.1",
+    "kind-of": "^6.0.3"
   },
   "dependencies": {},
   "scripts": {
